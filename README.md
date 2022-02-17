@@ -2,17 +2,16 @@
 
 ### GeoEco.Com
 <!-- 
-Accede a la web: [FútbolRafi.com](https://futbolrafi.netlify.app/home) --> // poner la buena cuando se cree.
+Accede a la web: [FútbolRafi.com](https://futbolrafi.netlify.app/home) --> // poner la URL del web buena cuando se cree.
 
 ![Árbol de Páginas](https://user-images.githubusercontent.com/96442220/154500211-2725fc5e-44ba-4382-bfbe-e7c063d52f43.png)
 
 
-Se trata de un proyecto en el cual se va a desarrollar una web deportiva para fúboleros, en donde se podrá encontrar todos los partidos jugados de diferentes ligas, Santander, la Premier, la BundesLiga entre otras. También se podrá consultar la clasificación y estadísticas tales como: Nº de goles, Partidos jugados o la media de goles/partido.
-En la página de partidos se podrá realizar filtros de partidos ganados, perdidos, empatados, filtro por jornada o partidos por jugar. Y además también se podra acceder a las webs de los equipos de diferentes ligas.
+Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sobre Geología y Economía y también a futuro diversos temas sobre ciencia, política economía, esta destinado a personas curiosas que les guste aprender sobre este tipo de temas, va a constar de una página Home otra de contactos, otra de vñídeos y otra de blog de artículos y noticias en los cuales se va a poder realizar comentarios, para acceder a la Home y a la página de contacto no va a ser necesario suscribirse y pagar pero para acceder alos contenidos del blog y vídeos sí. Esto se va a controlar estableciendo un acceso en le que será necesario escribir tu usuario y contraseña y para poder validar este usuario o contraseña que obtienes registrandote en el formulario de la página de contactos, deberás haber pagado el importe mensual/anual que se haya establecido.
 
-Toda la información está conectada de manera asíncrona a una API por lo que la información está actualizada en todo momento haciendo de esta web dinámica y no estática.
+Páginas de la web
 
-### En cuanto atenologías hemos empleado: 
+### Tenologías hemos empleado: 
 
 - HTML: Es un lenguaje de marcado que lo hemos usado para estructurar las páginas y poner los ids, clases y scripts de conexion a CSS y JS. 
 ***
