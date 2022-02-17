@@ -9,22 +9,42 @@ Accede a la web: [FútbolRafi.com](https://futbolrafi.netlify.app/home) --> // p
 
 Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sobre Geología y Economía y también a futuro diversos temas sobre ciencia, política economía, esta destinado a personas curiosas que les guste aprender sobre este tipo de temas, va a constar de una página Home otra de contactos, otra de vñídeos y otra de blog de artículos y noticias en los cuales se va a poder realizar comentarios, para acceder a la Home y a la página de contacto no va a ser necesario suscribirse y pagar pero para acceder alos contenidos del blog y vídeos sí. Esto se va a controlar estableciendo un acceso en le que será necesario escribir tu usuario y contraseña y para poder validar este usuario o contraseña que obtienes registrandote en el formulario de la página de contactos, deberás haber pagado el importe mensual/anual que se haya establecido.
 
-Páginas de la web
+### La estructura de la web se compone de:
+
+1. HOME: Es la página principal, en ella tenemos una NavBar que te lleva al resto de páginas,en ella ponemos a que nos dedicamos y que es lo que ofrecemos, además consta de enlaces que te llevan a contacto que es donde puedes ver nuestras redes sociales, correos y donde se encuentra el formulario de registro a la suscripción.
+***
+2. Contacto: En esta página podemos observar nuestras redes sociales, explicamos la diferencia entre una suscripción u otra (quizás hacer otra página para el formulario ( aquí eligirá la suscripción) y explicar aquí el pago) y es donde va estar el formulario de registro y el enlace que te lleva al pago.
+***
+2. Pago: Esta página se abrirá al cliente que haya rellenado el formulario de suscripción y podrá realizar el pago del tipo de suscripción que haya elegido.
+3. ***
+4. Blogs: En esta página se van a poder disfrutar de los artículos y noticias agrupados en 2 categorías Geología y Economía, también se podrá responder con comentarios a esas noticias y artículos, solo podrá acceder quien se haya suscrito y realizado el pago.
+***
+5. Vídeos: Aquí el suscriptor podrá visualizar todo tipo de vídeos agrupados en 2 categorías Geología y Economía,  también se podrá responder con comentarios a esas noticias y artículos, solo podrá acceder quien se haya suscrito y realizado el pago.
+***
+
+# Para poder acceder hemos utilizado 2 tipos de usuarios:
+
+1. Administrador: Es el que se va a encargar de subir los contenidos a la página y se va a ocupar del mantenimiento.
+2. Suscriptor: Van a ser los clientes que hayan realizado el registro y el pago, estos usuarios podrán acceder a los contenidos de vídeos y del blog.
+
+# El arbolado que hemos utilizado para los modelos e Id es:
+![2](https://user-images.githubusercontent.com/96442220/154519194-7be661f4-7166-47eb-a93f-bf11788a37ce.jpg)
+
 
 ### Tenologías hemos empleado: 
 
-- HTML: Es un lenguaje de marcado que lo hemos usado para estructurar las páginas y poner los ids, clases y scripts de conexion a CSS y JS. 
+<!-- - HTML: Es un lenguaje de marcado que lo hemos usado para estructurar las páginas y poner los ids, clases y scripts de conexion a CSS y JS. 
 ***
 - CSS: Lo hemos usado para darle estilo a las páginas y hemos usado diferentes propiedas y alguna animación como el spinner/loading.
 ***
 - Bootstrap: Lo hemos usado para darle un diseño más estandarizado a todas las páginas usando diferentes clases en sus correspondientes etiquetas, por ejemplo un carrusel de vídeo e imágenes.
 ***
 - JavaScript: Ha sido la tecnología más utilizada con ella le hemos dado dinamismo a la página, hemos realizado distintas funciones, bucles For, ForEach cuyo resultado ha sido la manipulación de objetos (DOM) de la API, hemos obtenidos los objetos los hemos recoorrido y filtrado y hemos creado nuevas tablas con sus correspondientes buscadores botones y filtros.
----
-
-![Tecnologies](https://user-images.githubusercontent.com/96442220/153618938-50bd2647-cb80-4386-b1c1-49b35960a3f0.jpg)
-
----
+*** -->
+- Node JS: Ha sido el lenguaje de Backend que hemos utilizado,
+***
+- Mongo DB: Es el tipo de base de datos que hemos utilizado para el proyecto.
+***
 
 Y para conectarnos a la API hemos usado la función Fetch a la aplicación de Postman:
 
@@ -33,20 +53,6 @@ Y para conectarnos a la API hemos usado la función Fetch a la aplicación de Po
 ![Postman](https://user-images.githubusercontent.com/96442220/153619900-b7e046bc-6146-4175-ba61-23f6d37c7fed.png)
 
 ***
-
-### La estructura de la web se compone de:
-
-1. HOME: Es la página principal, en ella tenemos una NavBar que te lleva al resto de páginas, tiene también un carrusel que  va pasando un vídeo y fotos en segundos, también consta de de 4 cards con anuncios, imágenes de decoración. y un footer con las redes sociales y un input para poder suscribirte.
-***
-2. Partidos de las ligas y UEFA: En esta página tenemos una tabla con todos los partidos jugados de esta temporada y de los que quedan por jugar, al estar conectado con el fetch se actualizan en cuanto se carga la página, te permite filtrar esta tabla a un equipo en concreto y a partidos ganados,perdidos, empatados,pendientes de jugar y un filtro por jornada.
-Además consta de una serie de botones que te permiten ver y filtrar la liga Premier, Bundesliga, francesa, italiana y la Uefa Champions League.
-***
-3. Clasificación de equipos: En esta página observamos la clasificación de los equipos con diversas variables, la puntuación, las victorias, derrotas goles a favor, en contra y diferencia de goles. Además conta de botones que te permiten ver la clasificación de la Premier, Bundesliga y el resto de ligas, todo actualizado y en tiempo real
-***
-4. Estadísticas: En dicha página podemos observar una serie de estadísticas, en primer lugar podemos ver una tabla ordenada con los equipos que mayor media de goles/partido tienen, a continuación vemos otra tabla ordenada con los equipos que menos goles en contra tienen,amabas tablas se actualizan en cada carga y como en las tablas de partidos y clasificación también se puede consultar otras ligas.
-***
-5. LinksLigas: En esta página se puede consultar los links de diferentes ligas, los cuales te llevan a la página web del equipo.
-
 
 ### Funcionalidades:
 
