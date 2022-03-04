@@ -1,9 +1,11 @@
 const express = require("express")
 const Category = require("../models/Category")
 const CategoryRouter = express.Router();
+const auth = require("../middleware/auth") // esto para que el newarticle solo lo pueda hacer alguien que esté logueado
+const authAdmin = require("../middleware/authAdmin") // esto para que solo lo pueda hacer el administrador
 
 
-CategoryRouter.get("/categories", async (req, res) => {
+CategoryRouter.get("/categories", auth, async (req, res) => {
     let categories = await Category.find({}) // Se hace con find ( find viene de mongoose) para buscar dentro de la colección, así devuelve todos los objetos que hay en Author
     try {
         return res.status(200).send({
@@ -18,7 +20,7 @@ CategoryRouter.get("/categories", async (req, res) => {
     }
 })
 
-CategoryRouter.post("/newcategory", async (req, res) => {
+CategoryRouter.post("/newcategory", auth, authAdmin, async (req, res) => {
     const {
         categoryName
     } = req.body
@@ -57,7 +59,7 @@ CategoryRouter.post("/newcategory", async (req, res) => {
 
 })
 
-CategoryRouter.put("/updatecategory/:id", async (req, res) => {
+CategoryRouter.put("/updatecategory/:id", auth, authAdmin, async (req, res) => {
     const {
         id
     } = req.params
@@ -67,7 +69,7 @@ CategoryRouter.put("/updatecategory/:id", async (req, res) => {
     try {
 
 
-        await Category.findOneAndUpdate(id, {
+        await Category.findByIdAndUpdate(id, {
             categoryName,
         })
 

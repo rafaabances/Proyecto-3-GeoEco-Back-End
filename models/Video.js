@@ -5,8 +5,8 @@ const VideoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    videov: {
-        type: String,
+    videoV: {
+        type: String, 
         required: true
     },
     category: {
@@ -17,10 +17,12 @@ const VideoSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "User"
     },
-    commentVideo:{
-        type: mongoose.Types.ObjectId,
-        ref: "Comment"
-    },
+    commentV: [ 
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "CommentVideo"
+        },
+    ],
 }, {
     timestamps: true
 })

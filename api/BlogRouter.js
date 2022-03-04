@@ -1,9 +1,11 @@
 const express = require("express")
 const Blog = require("../models/Blog")
 const BlogRouter = express.Router();
+const auth = require("../middleware/auth") // esto para que el newarticle solo lo pueda hacer alguien que esté logueado
+const authAdmin = require("../middleware/authAdmin") // esto para que solo lo pueda hacer el administrador
 
 
-BlogRouter.get("/news", async (req, res) => {
+BlogRouter.get("/news", auth, async (req, res) => {
     let news = await Blog.find({}) // Se hace con find ( find viene de mongoose) para buscar dentro de la colección, así devuelve todos los objetos que hay en Author
     try {
 
@@ -20,12 +22,13 @@ BlogRouter.get("/news", async (req, res) => {
     }
 })
 
-BlogRouter.get("/findnew/:id", async (req, res) => {
+BlogRouter.get("/findnew/:id", auth, async (req, res) => {
     const {
         id
     } = req.params
     try {
-        let blog = await Blog.findById(id).populate("user").populate({path:'commentNew', select:'user commentText'}).populate("category")
+        // let blog = await Blog.findById(id).populate({ path: 'user', select: 'name' }).populate("category").populate('commentNew')
+        let blog = await Blog.findById(id,"user commentNew")
 
         //errores antes de la respuesta final
 
@@ -57,22 +60,19 @@ BlogRouter.get("/findnew/:id", async (req, res) => {
 })
 
 
-BlogRouter.post("/newarticle", async (req, res) => {
+BlogRouter.post("/newarticle", auth, authAdmin, async (req, res) => { // pasamos el auth para que necesites estar logueado
     const {
         titleNew,
-        user,
         noticia,
         commentNew,
         category
-
     } = req.body
-    let blog = new Blog({ // viene del modelo user
-        titleNew,
-        user: user,
-        noticia,
-        commentNew: commentNew,
-        category: category
-    })
+    // const user = User.findById(req.user.id).select("name")
+    // const name = user
+
+const user = req.user.id
+
+    // condición de que no hay usuario
 
     if (titleNew.length < 5) {
         return res.status(400).send({
@@ -82,7 +82,6 @@ BlogRouter.post("/newarticle", async (req, res) => {
     }
 
 
-
     if (!titleNew || !noticia) {
         return res.status(400).send({
             success: false,
@@ -90,7 +89,13 @@ BlogRouter.post("/newarticle", async (req, res) => {
         })
     }
 
-
+    let blog = new Blog({ // viene del modelo user
+        titleNew,
+        user,
+        noticia,
+        commentNew: commentNew,
+        category: category
+    })
     await blog.save()
     return res.status(200).send({
         success: true,
@@ -98,15 +103,15 @@ BlogRouter.post("/newarticle", async (req, res) => {
     })
 })
 
-BlogRouter.put("/updatenew/:id", async (req, res) => {
+BlogRouter.put("/updatenew/:id", auth, authAdmin, async (req, res) => {
     const {
         id
     } = req.params
     const {
         titleNew,
-        user,
+        user, // eliminar
         noticia,
-        commentNew,
+        commentNew, // eliminar
         category
     } = req.body
     try {
@@ -126,7 +131,7 @@ BlogRouter.put("/updatenew/:id", async (req, res) => {
         }
 
 
-        await Blog.findOneAndUpdate(id, {
+        await Blog.findByIdAndUpdate(id, {
             titleNew,
             user,
             noticia,
@@ -149,8 +154,10 @@ BlogRouter.put("/updatenew/:id", async (req, res) => {
 })
 
 
-BlogRouter.delete("/deletenew/:id", async (req, res)=>{
-    const{id} = req.params
+BlogRouter.delete("/deletenew/:id", auth, authAdmin, async (req, res) => { // falta borrado en cascada de comentario post de usuario ....
+    const {
+        id
+    } = req.params
     try {
         await Blog.findByIdAndDelete(id)
         return res.status(200).send({
@@ -161,7 +168,7 @@ BlogRouter.delete("/deletenew/:id", async (req, res)=>{
         res.status(500).send({
             success: false,
             message: error.message
-        }) 
+        })
     }
 })
 

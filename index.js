@@ -4,7 +4,8 @@ const app = express();
 require("dotenv").config();
 const PayRouter = require("./api/PayRouter");
 const UserRouter = require("./api/UserRouter");
-const CommentRouter = require("./api/CommentRouter");
+const CommentBlogRouter = require("./api/CommentBlogRouter");
+const CommentVideoRouter = require("./api/CommentVideoRouter");
 const VideoRouter = require("./api/VideoRouter");
 const BlogRouter = require("./api/BlogRouter");
 const CategoryRouter = require("./api/CategoryRouter");
@@ -15,7 +16,8 @@ app.use(express.urlencoded())
 
 app.use("/api", PayRouter)
 app.use("/api", UserRouter)
-app.use("/api", CommentRouter)
+app.use("/api", CommentBlogRouter)
+app.use("/api", CommentVideoRouter)
 app.use("/api", VideoRouter)
 app.use("/api", BlogRouter)
 app.use("/api", CategoryRouter)

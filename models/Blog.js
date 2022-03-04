@@ -5,22 +5,26 @@ const BlogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    user: {
-        type: mongoose.Types.ObjectId,
-        ref: "User"
-    },
     noticia: {
         type: String,
         required: true
     },
-    commentNew: {
-        type: mongoose.Types.ObjectId,
-        ref: "Comment"
-    },
     category:{
         type: mongoose.Types.ObjectId,
-        ref: "Category"
+        ref: "Category",
+        required: true
     },
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+    },
+    commentNew: [ // lo agrupamos en una array con todos los comentarios
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "CommentBlog"
+        }
+    ],
+  
 }, {
     timestamps: true
 })

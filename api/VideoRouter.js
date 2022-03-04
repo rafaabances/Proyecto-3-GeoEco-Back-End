@@ -1,9 +1,12 @@
 const express = require("express")
 const Video = require("../models/Video")
 const VideoRouter = express.Router();
+const auth = require("../middleware/auth") // esto para que el newvideo solo lo pueda hacer alguien que esté logueado
+const authAdmin = require("../middleware/authAdmin") // esto para que solo lo pueda hacer el administrador
 
 
-VideoRouter.get("/videos", async (req, res) => {
+
+VideoRouter.get("/videos", auth, async (req, res) => {
     let videos = await Video.find({}) // Se hace con find ( find viene de mongoose) para buscar dentro de la colección, así devuelve todos los objetos que hay en Author
     try {
 
@@ -20,12 +23,13 @@ VideoRouter.get("/videos", async (req, res) => {
     }
 })
 
-VideoRouter.get("/findvideo/:id", async (req, res) => {
+VideoRouter.get("/findvideo/:id", auth,  async (req, res) => {
     const {
         id
     } = req.params
     try {
-        let video = await Video.findById(id).populate("category").populate("user").populate("commentVideo")
+        let video = await Video.findById(id, "titleVideo category user commentV")
+        // .populate({ path: 'user', select: 'name' }).populate("category").populate("commentVideo")
 
         //errores antes de la respuesta final
 
@@ -57,21 +61,19 @@ VideoRouter.get("/findvideo/:id", async (req, res) => {
 })
 
 
-VideoRouter.post("/newvideo", async (req, res) => {
+VideoRouter.post("/newvideo", auth, authAdmin, async (req, res) => {
     const {
         titleVideo,
-        videov,
+        videoV,
         category,
         user,
-        commentVideo
 
     } = req.body
     let video = new Video({ // viene del modelo user
         titleVideo,
-        videov,
+        videoV,
         category: category,
         user: user,
-        commentVideo: commentVideo
     })
 
     if (titleVideo.length < 10) {
@@ -83,7 +85,7 @@ VideoRouter.post("/newvideo", async (req, res) => {
 
 
 
-    if (!titleVideo || !videov ) {
+    if (!titleVideo || !videoV ) {
         return res.status(400).send({
             success: false,
             message: "No has completado todos los campos"
@@ -99,40 +101,40 @@ VideoRouter.post("/newvideo", async (req, res) => {
     })
 })
 
-VideoRouter.put("/updatevideo/:id", async (req, res) => {
+VideoRouter.put("/updatevideo/:id", auth, authAdmin, async (req, res) => {
     const {
         id
     } = req.params
     const {
         titlevideo,
-        videov,
+        videoV,
         category,
         user,
         commentvideo
     } = req.body
     try {
 
-        if (titlevideo.length < 10) {
-            return res.status(400).send({
-                success: false,
-                message: "Título del vídeo demasiado corto"
-            })
-        }
+        // if (titlevideo.length < 10) {
+        //     return res.status(400).send({
+        //         success: false,
+        //         message: "Título del vídeo demasiado corto"
+        //     })
+        // }
 
 
 
-        if (!titlevideo || !videov || !DNI) {
-            return res.status(400).send({
-                success: false,
-                message: "No has completado todos los campos"
-            })
-        }
+        // if (!titlevideo || !videoV || !DNI) {
+        //     return res.status(400).send({
+        //         success: false,
+        //         message: "No has completado todos los campos"
+        //     })
+        // }
 
 
 
-        await Video.findOneAndUpdate(id, {
+        await Video.findByIdAndUpdate(id, {
             titlevideo,
-            videov,
+            videoV,
             category,
             user,
             commentvideo
@@ -155,7 +157,7 @@ VideoRouter.put("/updatevideo/:id", async (req, res) => {
 })
 
 
-VideoRouter.delete("/deletevideo/:id", async (req, res)=>{
+VideoRouter.delete("/deletevideo/:id", auth, authAdmin, async (req, res)=>{
     const{id} = req.params
     try {
         await Video.findByIdAndDelete(id)

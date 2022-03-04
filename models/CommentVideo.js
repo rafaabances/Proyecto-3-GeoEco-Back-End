@@ -1,14 +1,18 @@
 const mongoose = require("mongoose")
 
-const CommentSchema = new mongoose.Schema({
-    user: {
+const CommentVideoSchema = new mongoose.Schema({
+    userId: {
         type: mongoose.Types.ObjectId,
         ref: "User" //viene del modelo User.js model (-- se pone este: User , UserSchema)
     },
-    commentText: {
+    commentTextVideo: {
         type: String,
         required: true
     },
+    video: {
+        type: mongoose.Types.ObjectId, 
+        ref: "Video"
+    }
 }, {
     timestamps: true
 })
@@ -17,4 +21,4 @@ const CommentSchema = new mongoose.Schema({
 
 
 
-module.exports = mongoose.model("Comment", CommentSchema)
+module.exports = mongoose.model("CommentVideo", CommentVideoSchema)

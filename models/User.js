@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -21,8 +22,8 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    role:{                     //esta propiedad no es requerida, se crea sola y por defecto va a ser 0
-        type:Number,           // le pondremos 1 para distinguirlo y tener el usuario admin que tendrá permisos especiales
+    role:{                     //esta propiedad no es requerida, No hay que pasarla por el body, se crea sola y por defecto va a ser 0
+        type: Number,           // le pondremos 1 para distinguirlo y tener el usuario admin que tendrá permisos especiales
         default: 0 
     }
 }, {

@@ -1,9 +1,11 @@
 const express = require("express")
 const Pay = require("../models/Pay")
 const PayRouter = express.Router();
+const auth = require("../middleware/auth") // esto para que el newarticle solo lo pueda hacer alguien que esté logueado
+const authAdmin = require("../middleware/authAdmin") // esto para que solo lo pueda hacer el administrador
 
 
-PayRouter.get("/payments", async (req, res)=>{
+PayRouter.get("/payments", auth, authAdmin, async (req, res)=>{
     let Payments = await Pay.find({}) // Se hace con find ( find viene de mongoose) para buscar dentro de la colección, así devuelve todos los objetos que hay en Author
     try {
         
@@ -19,9 +21,9 @@ PayRouter.get("/payments", async (req, res)=>{
     })
 
 }
-})
+}) // histoy de pagos.
 
-PayRouter.get("/findpay/:id", async (req, res) => {
+PayRouter.get("/findpay/:id", auth, async (req, res) => {
     const {
         id
     } = req.params
