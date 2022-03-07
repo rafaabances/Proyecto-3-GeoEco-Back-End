@@ -76,9 +76,9 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
 ***
 - PostMan: Se trata de una aplicación que nos permite realizar pruebas API. Es un cliente HTTP que nos da la posibilidad de testear ‘HTTP requests’ a través de una interfaz gráfica de usuario, por medio de la cual obtendremos diferentes tipos de respuesta que posteriormente deberán ser validados.
 
-      - Métodos:
+     - Métodos:
       
-          Postman nos ofrece muchos métodos para interactuar con los ‘endpoints’. Los más utilizados y sus funciones son:
+        - Postman nos ofrece muchos métodos para interactuar con los ‘endpoints’. Los más utilizados y sus funciones son:
 
           * GET: Obtener información
           * POST: Agregar información
@@ -178,7 +178,10 @@ En nuestro proyecto hemos realizado diversas rutas que interrealcionan modelos y
 
 * Admin: Nos permite comprobar si el usuario es administrador o es suscriptor, si es administrador se le habilita a poder subir, modificar o borrar contenidos, esto se comprueba gracias al establecimiento de una propiedad en el modelo de usuario, el rol, 1 si es administrador, 0 si es suscriptor. Esto también se ha configurado poniendo esta funcionalidad en la rutas dirigidas al servidor.
 
-### Funciones más relevantes:
+* .env: Son archivos que pueden valorarse como un modelo para el almacenamiento de variables de entorno y su formato es muy sencillo de entender. Escribiremos los .env con pares clave (nombre de variable) y valor, separados por un carácter = y situaremos cada uno en una línea diferente. Colocaremos el archivo .env en la raíz del proyecto (nos referimos a fuera del directorio de publicación), sin nombre (solo extensión). Es decir, en un directorio por encima para no dar acceso a los usuarios a estas variables. Este no lo subiremos (o lo oacultaremos de) a nuestro repositorio git (ya se accede a él gracias a las dependencias y de esa forma no revelamos nuestras credenciales, contraseñas o tokens.)
+
+
+* .gitignore: El archivo .gitignore, es un archivo de texto que le dice a Git qué archivos o carpetas ignorar en un proyecto. En nuestro caso va a ser node_modules y .env ya que no queremos que se rastreen credenciales, llaves privadas, las claves API y otra información confidencial en un repositorio de git, especialmente uno público.
 
 
 ***
