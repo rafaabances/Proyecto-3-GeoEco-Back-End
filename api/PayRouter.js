@@ -5,22 +5,22 @@ const auth = require("../middleware/auth") // esto para que el newarticle solo l
 const authAdmin = require("../middleware/authAdmin") // esto para que solo lo pueda hacer el administrador
 
 
-PayRouter.get("/payments", auth, authAdmin, async (req, res)=>{
+PayRouter.get("/payments", auth, authAdmin, async (req, res) => {
     let Payments = await Pay.find({}) // Se hace con find ( find viene de mongoose) para buscar dentro de la colección, así devuelve todos los objetos que hay en Author
     try {
-        
-   
-    return res.status(200).send({
-        success: true,
-        Payments
-    })
-} catch (error) {
-    return res.status(500).send({
-        success: false,
-        message: error.message
-    })
 
-}
+
+        return res.status(200).send({
+            success: true,
+            Payments
+        })
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: error.message
+        })
+
+    }
 }) // histoy de pagos.
 
 PayRouter.get("/findpay/:id", auth, async (req, res) => {
@@ -60,25 +60,30 @@ PayRouter.get("/findpay/:id", auth, async (req, res) => {
 })
 
 
-PayRouter.post("/newpayment", async (req, res) =>{
-    const {user, address, paymentId, membership} = req.body
+PayRouter.post("/newpayment", async (req, res) => {
+    const {
+        user,
+        address,
+        paymentId,
+        membership
+    } = req.body
 
 
-    let PayN = new Pay ({ // viene del modelo user
+    let PayN = new Pay({ // viene del modelo user
         user: user,
         address,
         paymentId,
         membership
     })
 
-    if (address.length < 10){
+    if (address.length < 10) {
         return res.status(400).send({
             success: false,
             message: "La dirección es demasiado corta"
         })
     }
 
-    if(!user || !address || !paymentId || !membership){
+    if (!user || !address || !paymentId || !membership) {
         return res.status(400).send({
             success: false,
             message: "No has completado todos los campos"

@@ -9,7 +9,7 @@ const BlogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category:{
+    category: {
         type: mongoose.Types.ObjectId,
         ref: "Category",
         required: true
@@ -24,7 +24,7 @@ const BlogSchema = new mongoose.Schema({
             ref: "CommentBlog"
         }
     ],
-  
+
 }, {
     timestamps: true
 })

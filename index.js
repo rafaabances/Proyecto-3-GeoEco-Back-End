@@ -11,7 +11,9 @@ const BlogRouter = require("./api/BlogRouter");
 const CategoryRouter = require("./api/CategoryRouter");
 
 
-app.use(express.json({extended:true}))
+app.use(express.json({
+    extended: true
+}))
 app.use(express.urlencoded())
 
 app.use("/api", PayRouter)
@@ -31,11 +33,11 @@ console.log(URL) // la puedes comentar
 
 mongoose.connect(URL, {
     // UseCreateIndex: true // se ponía antes para crear un índice, ahora lo crea automaticamente
-    }).then(()=>{
-        console.log("BD IS CONNECTED")
-    }).catch(error =>{   // se puede poner un catch en la base de datos
-        console.log(error)
-    })
+}).then(() => {
+    console.log("BD IS CONNECTED")
+}).catch(error => { // se puede poner un catch en la base de datos
+    console.log(error)
+})
 
 
 

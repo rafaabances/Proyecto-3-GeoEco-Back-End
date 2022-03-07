@@ -28,7 +28,10 @@ BlogRouter.get("/findnew/:id", auth, async (req, res) => {
     } = req.params
     try {
         // let blog = await Blog.findById(id).populate({ path: 'user', select: 'name' }).populate("category").populate('commentNew')
-        let blog = await Blog.findById(id,"user commentNew")
+        let blog = await Blog.findById(id, "user").populate({
+            path: 'commentNew',
+            select: 'commentTextBlog'
+        })
 
         //errores antes de la respuesta final
 
@@ -64,13 +67,12 @@ BlogRouter.post("/newarticle", auth, authAdmin, async (req, res) => { // pasamos
     const {
         titleNew,
         noticia,
-        commentNew,
         category
     } = req.body
     // const user = User.findById(req.user.id).select("name")
     // const name = user
 
-const user = req.user.id
+    const user = req.user.id
 
     // condición de que no hay usuario
 
@@ -93,7 +95,6 @@ const user = req.user.id
         titleNew,
         user,
         noticia,
-        commentNew: commentNew,
         category: category
     })
     await blog.save()

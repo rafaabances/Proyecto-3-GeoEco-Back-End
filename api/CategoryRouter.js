@@ -27,8 +27,8 @@ CategoryRouter.post("/newcategory", auth, authAdmin, async (req, res) => {
 
     try {
 
-        let category = new Category({ 
-           categoryName,
+        let category = new Category({
+            categoryName,
         })
 
         //manejo de errores
@@ -44,9 +44,9 @@ CategoryRouter.post("/newcategory", auth, authAdmin, async (req, res) => {
         await category.save()
         return res.status(200).send({
             success: true,
-            message:"Categoría creada",
+            message: "Categoría creada",
             category
-            
+
         })
 
     } catch (error) {

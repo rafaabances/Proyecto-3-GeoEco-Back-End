@@ -23,13 +23,18 @@ VideoRouter.get("/videos", auth, async (req, res) => {
     }
 })
 
-VideoRouter.get("/findvideo/:id", auth,  async (req, res) => {
+VideoRouter.get("/findvideo/:id", auth, async (req, res) => {
     const {
         id
     } = req.params
     try {
-        let video = await Video.findById(id, "titleVideo category user commentV")
+        // let video = await Video.findById(id, "titleVideo category user commentV")
         // .populate({ path: 'user', select: 'name' }).populate("category").populate("commentVideo")
+        let video = await Video.findById(id, "user").populate({
+            path: 'commentV',
+            select: 'commentTextVideo'
+        })
+
 
         //errores antes de la respuesta final
 
@@ -85,7 +90,7 @@ VideoRouter.post("/newvideo", auth, authAdmin, async (req, res) => {
 
 
 
-    if (!titleVideo || !videoV ) {
+    if (!titleVideo || !videoV) {
         return res.status(400).send({
             success: false,
             message: "No has completado todos los campos"
@@ -157,8 +162,10 @@ VideoRouter.put("/updatevideo/:id", auth, authAdmin, async (req, res) => {
 })
 
 
-VideoRouter.delete("/deletevideo/:id", auth, authAdmin, async (req, res)=>{
-    const{id} = req.params
+VideoRouter.delete("/deletevideo/:id", auth, authAdmin, async (req, res) => {
+    const {
+        id
+    } = req.params
     try {
         await Video.findByIdAndDelete(id)
         return res.status(200).send({
@@ -169,7 +176,7 @@ VideoRouter.delete("/deletevideo/:id", auth, authAdmin, async (req, res)=>{
         res.status(500).send({
             success: false,
             message: error.message
-        }) 
+        })
     }
 })
 

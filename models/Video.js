@@ -6,23 +6,21 @@ const VideoSchema = new mongoose.Schema({
         required: true
     },
     videoV: {
-        type: String, 
+        type: String,
         required: true
     },
     category: {
         type: mongoose.Types.ObjectId,
         ref: "Category"
     },
-    user:{
+    user: {
         type: mongoose.Types.ObjectId,
         ref: "User"
     },
-    commentV: [ 
-        {
-            type: mongoose.Types.ObjectId,
-            ref: "CommentVideo"
-        },
-    ],
+    commentV: [{
+        type: mongoose.Types.ObjectId,
+        ref: "CommentVideo"
+    }, ],
 }, {
     timestamps: true
 })

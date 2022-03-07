@@ -5,21 +5,21 @@ const Blog = require("../models/Blog");
 const auth = require("../middleware/auth") // esto para que el newarticle solo lo pueda hacer alguien que esté logueado
 const User = require("../models/User");
 
-CommentBlogRouter.get("/commentsblog", auth, async (req, res)=>{
+CommentBlogRouter.get("/commentsblog", auth, async (req, res) => {
     let Comments = await CommentBlog.find({}) // Se hace con find ( find viene de mongoose) para buscar dentro de la colección, así devuelve todos los objetos que hay en Author
     try {
-        
-    return res.status(200).send({
-        success: true,
-        Comments
-    })
 
-} catch (error) {
-    return res.status(500).send({
-        success: false,
-        message: error.message
-    }) 
-}
+        return res.status(200).send({
+            success: true,
+            Comments
+        })
+
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: error.message
+        })
+    }
 
 })
 
@@ -60,47 +60,51 @@ CommentBlogRouter.get("/commentsblog", auth, async (req, res)=>{
 // })
 
 CommentBlogRouter.get("/commentblog/:id", auth, async (req, res) => { // auth?
-    const {id } = req.params;
+    const {
+        id
+    } = req.params;
     // const id = req.body;
     let comments = await CommentBlog.findById(id);
-  
+
     let userId = comments.userId;
     // console.log(comments.userId);
-  
+
     const userInfo = await User.findById(userId, "name");
     return res.json({
-      success: true,
-      comments,
-      userInfo,
+        success: true,
+        comments,
+        userInfo,
     });
-  });
+});
 
-CommentBlogRouter.post("/newcommentblog", auth, async (req, res) => {
-    const userId = req.user.id;
-    const {commentTextBlog, blogId } = req.body;
-   
-    let comentario = new CommentBlog({
-      userId,
-      commentTextBlog,
-      blog: blogId,
-    });
-  
-    let newcommentBlog = await comentario.save();
-  
-    let commentPostBlog = await Blog.findByIdAndUpdate(userId, {
-      $push: {commentNew: newcommentBlog._id },
-    });
-  
-    return res.status(200).send({
-      success: true,
-      commentTextBlog: newcommentBlog
-    });
-  });
-  
-  
-  
- // ---- donde comments del push, viene de tu modelo blog --- 
-   
+// CommentBlogRouter.post("/newcommentblog/:blogId", auth, async (req, res) => {
+//     const userId = req.user.id;
+//     const {commentTextBlog } = req.body;
+
+//     const blogId = req.params;
+
+//     let comentario = new CommentBlog({
+//       userId,
+//       commentTextBlog,
+//       blog: blogId,
+//     });
+
+//     let newcommentBlog = await comentario.save();
+
+//     await Blog.findByIdAndUpdate(blogId, {
+//       $push: {commentNew: newcommentBlog._id },
+//     });
+
+//     return res.status(200).send({
+//       success: true,
+//       commentTextBlog: newcommentBlog
+//     });
+//   });
+
+
+
+// ---- donde comments del push, viene de tu modelo blog --- 
+
 
 // CommentRouter.post("/newcomment", async (req, res) => {
 //     const {
@@ -140,37 +144,76 @@ CommentBlogRouter.post("/newcommentblog", auth, async (req, res) => {
 //     })
 // })
 
-CommentBlogRouter.put("/updatecommentblog/:id", auth, async(req, res)=>{
-    const {id} = req.params
-    const {user, commentTextBlog} = req.body
-    try {
-        
-    await CommentBlog.findByIdAndUpdate(id,{user,commentTextBlog}) 
-    
-    if (!commentTextBlog) {
-        return res.status(400).send({
-            success: false,
-            message: "No has escrito ningún comentario"
-        })
-    }
-   
+CommentBlogRouter.post("/newcommentblog/:blogId", auth, async (req, res) => {
+    const userId = req.user.id;
+    const {
+        commentTextBlog
+    } = req.body;
+    const {
+        blogId
+    } = req.params // pasamos por params el id del blog donde haremos el comentario // ha de ir entre corchetes ya que le pasamos un objeto.
+
+    let comentario = new CommentBlog({
+        userId,
+        commentTextBlog,
+        blog: blogId,
+    });
+
+    let newcommentBlog = await comentario.save();
+
+    await Blog.findByIdAndUpdate(blogId, { // con el id del blog, lo encontramos y le hacemos el push del nuevo comentario
+        $push: {
+            commentNew: newcommentBlog._id
+        },
+    });
 
     return res.status(200).send({
         success: true,
-        message: "Comentario Editado"
-    })
+        commentTextBlog: newcommentBlog
+    });
+});
 
-} catch (error) {
-    res.status(500).send({
-        success: false,
-        message: error.message
-    })
-}
+CommentBlogRouter.put("/updatecommentblog/:id", auth, async (req, res) => {
+    const {
+        id
+    } = req.params
+    const {
+        user,
+        commentTextBlog
+    } = req.body
+    try {
+
+        await CommentBlog.findByIdAndUpdate(id, {
+            user,
+            commentTextBlog
+        })
+
+        if (!commentTextBlog) {
+            return res.status(400).send({
+                success: false,
+                message: "No has escrito ningún comentario"
+            })
+        }
+
+
+        return res.status(200).send({
+            success: true,
+            message: "Comentario Editado"
+        })
+
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: error.message
+        })
+    }
 })
 
 
-CommentBlogRouter.delete("/deletecommentblog/:id", auth, async (req, res)=>{
-    const{id} = req.params
+CommentBlogRouter.delete("/deletecommentblog/:id", auth, async (req, res) => {
+    const {
+        id
+    } = req.params
     try {
         await CommentBlog.findByIdAndDelete(id)
         return res.status(200).send({
@@ -181,7 +224,7 @@ CommentBlogRouter.delete("/deletecommentblog/:id", auth, async (req, res)=>{
         res.status(500).send({
             success: false,
             message: error.message
-        }) 
+        })
     }
 })
 

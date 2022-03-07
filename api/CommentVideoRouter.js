@@ -5,21 +5,21 @@ const Video = require("../models/Video");
 const auth = require("../middleware/auth") // esto para que el newarticle solo lo pueda hacer alguien que esté logueado
 const User = require("../models/User");
 
-CommentVideoRouter.get("/commentsvideo", auth, async (req, res)=>{
+CommentVideoRouter.get("/commentsvideo", auth, async (req, res) => {
     let Comments = await CommentVideo.find({}) // Se hace con find ( find viene de mongoose) para buscar dentro de la colección, así devuelve todos los objetos que hay en Author
     try {
-        
-    return res.status(200).send({
-        success: true,
-        Comments
-    })
 
-} catch (error) {
-    return res.status(500).send({
-        success: false,
-        message: error.message
-    }) 
-}
+        return res.status(200).send({
+            success: true,
+            Comments
+        })
+
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: error.message
+        })
+    }
 
 })
 
@@ -60,64 +60,57 @@ CommentVideoRouter.get("/commentsvideo", auth, async (req, res)=>{
 // })
 
 CommentVideoRouter.get("/commentvideo/:id", auth, async (req, res) => { // auth?
-    const {id } = req.params;
+    const {
+        id
+    } = req.params;
     // const id = req.body;
     let comments = await CommentVideo.findById(id);
-  
+
     let userId = comments.userId;
     // console.log(comments.userId);
-  
+
     const userInfo = await User.findById(userId, "name");
     return res.json({
-      success: true,
-      comments,
-      userInfo,
+        success: true,
+        comments,
+        userInfo,
     });
-  });
+});
 
-CommentVideoRouter.post("/newcommentvideo", auth, async (req, res) => {
+CommentVideoRouter.post("/newcommentvideo/:videoId", auth, async (req, res) => {
     const id = req.user.id;
-    const {comment, videoId } = req.body;
-   
+    const {
+        comment
+    } = req.body;
+    const {
+        videoId
+    } = req.params // ha de ir entre corchetes ya que le pasamos un objeto.
+
     let comentario = new CommentVideo({
         userId: id,
-      commentTextVideo : comment,
-      video: videoId,
+        commentTextVideo: comment,
+        video: videoId,
     });
-  
+
     let newComment = await comentario.save();
-  
-    let commentPost = await Video.findByIdAndUpdate(videoId, {
-      $push: {commentV: newComment._id },
+
+    await Video.findByIdAndUpdate(videoId, {
+        $push: {
+            commentV: newComment._id
+        },
     });
 
-    // let commentPost = await Video.findByIdAndUpdate(videoId, {
-    //     $push: {commentV: newComment._id }, {
-    //         new: true
-    //     }
-    //   });
-
-    //   let commentPost = await Video.findByIdAndUpdate(
-    //     id, {
-    //             $push: {
-    //                 commentV: newComment,
-    //             }
-    //         }, {
-    //             new: true,
-    //         }
-    //     );
 
     return res.status(200).send({
-      success: true,
-      newComment,
-      commentPost
+        success: true,
+        newComment,
     });
-  });
-  
-  
-  
- // ---- donde comments del push, viene de tu modelo blog --- 
-   
+});
+
+
+
+// ---- donde comments del push, viene de tu modelo blog --- 
+
 
 // CommentRouter.post("/newcomment", async (req, res) => {
 //     const {
@@ -157,37 +150,47 @@ CommentVideoRouter.post("/newcommentvideo", auth, async (req, res) => {
 //     })
 // })
 
-CommentVideoRouter.put("/updatecommentvideo/:id", auth, async(req, res)=>{
-    const {id} = req.params
-    const {user, commentTextVideo} = req.body
+CommentVideoRouter.put("/updatecommentvideo/:id", auth, async (req, res) => {
+    const {
+        id
+    } = req.params
+    const {
+        user,
+        commentTextVideo
+    } = req.body
     try {
-        
-    await CommentVideo.findByIdAndUpdate(id,{user,commentTextVideo}) 
-    
-    if (!commentTextVideo) {
-        return res.status(400).send({
+
+        await CommentVideo.findByIdAndUpdate(id, {
+            user,
+            commentTextVideo
+        })
+
+        if (!commentTextVideo) {
+            return res.status(400).send({
+                success: false,
+                message: "No has escrito ningún comentario"
+            })
+        }
+
+
+        return res.status(200).send({
+            success: true,
+            message: "Comentario Editado"
+        })
+
+    } catch (error) {
+        res.status(500).send({
             success: false,
-            message: "No has escrito ningún comentario"
+            message: error.message
         })
     }
-   
-
-    return res.status(200).send({
-        success: true,
-        message: "Comentario Editado"
-    })
-
-} catch (error) {
-    res.status(500).send({
-        success: false,
-        message: error.message
-    })
-}
 })
 
 
-CommentVideoRouter.delete("/deletecommentvideo/:id", auth, async (req, res)=>{
-    const{id} = req.params
+CommentVideoRouter.delete("/deletecommentvideo/:id", auth, async (req, res) => {
+    const {
+        id
+    } = req.params
     try {
         await CommentVideo.findByIdAndDelete(id)
         return res.status(200).send({
@@ -198,7 +201,7 @@ CommentVideoRouter.delete("/deletecommentvideo/:id", auth, async (req, res)=>{
         res.status(500).send({
             success: false,
             message: error.message
-        }) 
+        })
     }
 })
 

@@ -9,7 +9,7 @@ const authAdmin = require("../middleware/authAdmin") // esto para que solo lo pu
 
 
 
-UserRouter.get("/users", auth, authAdmin,  async (req, res) => {
+UserRouter.get("/users", auth, authAdmin, async (req, res) => {
     let users = await User.find({}) // Se hace con find ( find viene de mongoose) para buscar dentro de la colección, así devuelve todos los objetos que hay en Author
     try {
 
@@ -117,8 +117,8 @@ UserRouter.post("/newuser", async (req, res) => {
             })
 
 
-        let passwordhash = await bcrypt.hash(password,10)
-     
+        let passwordhash = await bcrypt.hash(password, 10)
+
 
         // otra forma hashear contraseña
 
@@ -219,11 +219,16 @@ UserRouter.delete("/deleteuser/:id", auth, authAdmin, async (req, res) => {
 // El navegador no sabe que usuario es, por eso tiene que devolver una clave de acceso o Token - permitirá ir por todas las páginas web que tengas acceso.
 
 
-UserRouter.post("/login", async(req, res)=>{
-    const {email,password} = req.body
+UserRouter.post("/login", async (req, res) => {
+    const {
+        email,
+        password
+    } = req.body
     try {
-        let user = await User.findOne({email})
-        
+        let user = await User.findOne({
+            email
+        })
+
 
         if (!email) {
             return res.status(400).send({
@@ -247,33 +252,37 @@ UserRouter.post("/login", async(req, res)=>{
         }
 
         let passwordOk = await bcrypt.compare(password, user.password) //(de let user de esta funcion) // lo llaman match  //compara contraseña del body con la del usuario
-        if(!passwordOk) {
+        if (!passwordOk) {
             return res.status(400).send({
                 success: false,
                 message: "Wrong credentials/password"
             })
         }
 
-        const token = accessToken({id: user._id}) // te crea el token cuando te logueas
+        const token = accessToken({
+            id: user._id
+        }) // te crea el token cuando te logueas
 
         return res.status(200).send({
-            success:true,
-            message:"Usuario logueado correctamente",
+            success: true,
+            message: "Usuario logueado correctamente",
             token
         })
     } catch (error) {
         return res.status(500).send({
-            success:false,
+            success: false,
             message: error.message
         })
     }
 })
 
-const accessToken = (user) =>{
-return jwt.sign(user, process.env.ACCES_TOKEN_SECRET, {expiresIn: "7d"}) 
-//es la duración del token (en el backend si generas un nuevo token volviendo a loguearte
-// el anterior token te sigue valendo lo que ponga en expiresIn, en este caso 7 días) 
-// en el front es distinto al tener el log out (te borra el token)
+const accessToken = (user) => {
+    return jwt.sign(user, process.env.ACCES_TOKEN_SECRET, {
+        expiresIn: "7d"
+    })
+    //es la duración del token (en el backend si generas un nuevo token volviendo a loguearte
+    // el anterior token te sigue valendo lo que ponga en expiresIn, en este caso 7 días) 
+    // en el front es distinto al tener el log out (te borra el token)
 }
 
 module.exports = UserRouter
