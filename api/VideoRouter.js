@@ -69,14 +69,12 @@ VideoRouter.get("/findvideo/:id", auth, async (req, res) => {
 VideoRouter.post("/newvideo", auth, authAdmin, async (req, res) => {
     const {
         titleVideo,
-        videoV,
         category,
         user,
 
     } = req.body
     let video = new Video({ // viene del modelo user
         titleVideo,
-        videoV,
         category: category,
         user: user,
     })
@@ -90,7 +88,7 @@ VideoRouter.post("/newvideo", auth, authAdmin, async (req, res) => {
 
 
 
-    if (!titleVideo || !videoV) {
+    if (!titleVideo) {
         return res.status(400).send({
             success: false,
             message: "No has completado todos los campos"
@@ -112,34 +110,14 @@ VideoRouter.put("/updatevideo/:id", auth, authAdmin, async (req, res) => {
     } = req.params
     const {
         titlevideo,
-        videoV,
         category,
         user,
         commentvideo
     } = req.body
     try {
 
-        // if (titlevideo.length < 10) {
-        //     return res.status(400).send({
-        //         success: false,
-        //         message: "Título del vídeo demasiado corto"
-        //     })
-        // }
-
-
-
-        // if (!titlevideo || !videoV || !DNI) {
-        //     return res.status(400).send({
-        //         success: false,
-        //         message: "No has completado todos los campos"
-        //     })
-        // }
-
-
-
         await Video.findByIdAndUpdate(id, {
             titlevideo,
-            videoV,
             category,
             user,
             commentvideo

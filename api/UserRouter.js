@@ -197,7 +197,7 @@ UserRouter.put("/updateuser/:id", auth, async (req, res) => { // modificar todos
 })
 
 
-UserRouter.delete("/deleteuser/:id", auth, authAdmin, async (req, res) => {
+UserRouter.delete("/deleteuser/:id", auth, async (req, res) => {
     const {
         id
     } = req.params

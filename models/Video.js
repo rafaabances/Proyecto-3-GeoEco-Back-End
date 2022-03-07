@@ -5,10 +5,6 @@ const VideoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    videoV: {
-        type: String,
-        required: true
-    },
     category: {
         type: mongoose.Types.ObjectId,
         ref: "Category"

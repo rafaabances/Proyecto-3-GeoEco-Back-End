@@ -66,7 +66,6 @@ BlogRouter.get("/findnew/:id", auth, async (req, res) => {
 BlogRouter.post("/newarticle", auth, authAdmin, async (req, res) => { // pasamos el auth para que necesites estar logueado
     const {
         titleNew,
-        noticia,
         category
     } = req.body
     // const user = User.findById(req.user.id).select("name")
@@ -84,7 +83,7 @@ BlogRouter.post("/newarticle", auth, authAdmin, async (req, res) => { // pasamos
     }
 
 
-    if (!titleNew || !noticia) {
+    if (!titleNew) {
         return res.status(400).send({
             success: false,
             message: "No has completado todos los campos"
@@ -94,7 +93,6 @@ BlogRouter.post("/newarticle", auth, authAdmin, async (req, res) => { // pasamos
     let blog = new Blog({ // viene del modelo user
         titleNew,
         user,
-        noticia,
         category: category
     })
     await blog.save()
@@ -110,9 +108,6 @@ BlogRouter.put("/updatenew/:id", auth, authAdmin, async (req, res) => {
     } = req.params
     const {
         titleNew,
-        user, // eliminar
-        noticia,
-        commentNew, // eliminar
         category
     } = req.body
     try {
@@ -124,7 +119,7 @@ BlogRouter.put("/updatenew/:id", auth, authAdmin, async (req, res) => {
             })
         }
 
-        if (!titleNew || !noticia) {
+        if (!titleNew) {
             return res.status(400).send({
                 success: false,
                 message: "No has completado todos los campos"

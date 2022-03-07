@@ -5,10 +5,6 @@ const BlogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    noticia: {
-        type: String,
-        required: true
-    },
     category: {
         type: mongoose.Types.ObjectId,
         ref: "Category",
