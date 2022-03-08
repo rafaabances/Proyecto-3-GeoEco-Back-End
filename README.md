@@ -1,6 +1,6 @@
-## Proyecto-3-GeoEco-Back-End
+# Proyecto-3-GeoEco-Back-End
 
-### GeoEco.Com
+## GeoEco.Com
 
 <!-- Accede a la web: [FútbolRafi.com](https://futbolrafi.netlify.app/home) --> // poner la URL del web buena cuando se cree.
 
@@ -10,7 +10,7 @@
 
 Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sobre Geología y Economía y también a futuro diversos temas sobre ciencia, política economía, esta destinado a personas curiosas que les guste aprender sobre este tipo de temas, va a constar de una página Home otra de contactos, otra de vñídeos y otra de blog de artículos y noticias en los cuales se va a poder realizar comentarios, para acceder a la Home y a la página de contacto no va a ser necesario suscribirse y pagar pero para acceder alos contenidos del blog y vídeos sí. Esto se va a controlar estableciendo un acceso en le que será necesario escribir tu usuario y contraseña y para poder validar este usuario o contraseña que obtienes registrandote en el formulario de la página de contactos, deberás haber pagado el importe mensual/anual que se haya establecido.
 
-### La estructura de la web se compone de:
+## La estructura de la web se compone de:
 
 1. HOME: Es la página principal, en ella tenemos una NavBar que te lleva al resto de páginas,en ella ponemos a que nos dedicamos y que es lo que ofrecemos, además consta de enlaces que te llevan a contacto que es donde puedes ver nuestras redes sociales, correos y donde se encuentra el formulario de registro a la suscripción.
 ***
@@ -25,7 +25,7 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
 
 * En blogs y videos se podrá poner comentarios.
 
-# Para poder acceder hemos utilizado 2 tipos de usuarios:
+## Para poder acceder hemos utilizado 2 tipos de usuarios:
 
 1. Administrador: Es el que se va a encargar de subir los contenidos a la página y se va a ocupar del mantenimiento. El rol es 1.
 
@@ -33,13 +33,12 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
 
 *Para poder ser usuario de la página es necesario proceder al pago.
 
-# El arbolado que hemos utilizado para los Modelos e Id es:
+## El arbolado que hemos utilizado para los Modelos e Id es:
 ![Home](https://user-images.githubusercontent.com/96442220/157062458-465a45de-127e-4a6b-a2b1-9f34238f9b71.png)
 
 
 
-
-### Tenologías hemos empleado: 
+## Tenologías hemos empleado: 
 
 ![1_NFTgwZ_TUmceZnSHCundBw](https://user-images.githubusercontent.com/96442220/157254389-430a6b4f-c169-4dce-a55d-c94e44ddbc0a.jpg)
 
@@ -96,7 +95,7 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
 - Git es nuestro repositorio y Github esnuestra cuenta.
 ---
 
-### Modelos:
+## Modelos:
 
 Los modelos dentro de NodeJS van a representar a una entidad de la base de datos y más concretamente van a representar a un único registro o documento de nuestra base de de datos.
 
@@ -104,7 +103,7 @@ Por ejemplo, si tenemos una colección en la base de datos llamada pagos, dentro
 
 Se han establecido varios modelos: CommentVideo, CommentBlog, Users, Pay, Video, Blog y Category.
 
-### Rutas:
+## Rutas:
 
 El direccionamiento hace referencia a la determinación de cómo responde una aplicación a una solicitud de cliente en un determinado punto final, que es un URI (o una vía de acceso) y un método de solicitud HTTP específico (GET, POST, etc.).
 
@@ -178,7 +177,7 @@ En nuestro proyecto hemos realizado diversas rutas que interrealcionan modelos y
 
 ***
 
-### Funcionalidades:
+## Funcionalidades:
 
 * Login: Hemos realizado un control, estableciendo la necesidad de loguearse para saber quién ha procedido al pago y pueda visualizar los contenidos, para ello nos hemos apoyado en las funcionalidades de Auth (authorization) y Admin (adminsitrador)
 
