@@ -120,49 +120,50 @@ En nuestro proyecto hemos realizado diversas rutas que interrealcionan modelos y
 
 - CommentBlogRouter: Consta todo de Auth (es necesario estar logueado y disponer de un usuario) No hace falta ser administrador.
 
-    - Get: Permite ver todos los comentarios.
-    - Find: Permite ver un comentario en concreto gracias a la ID.
-    - Post: Permite crear un nuevo comentario, este se almacena en la propiedad del blog commentNew (es una array []).
-    - Update: Permite modificar un comentario que hayas realizado tú, no otra persona.
-    - Delete: Permite borrar un usuario que hayas realizado tú, no otra persona.
+    - Get: Permite ver todos los comentarios. http://localhost:5000/api/commentsvideo
+    - Find: Permite ver un comentario en concreto gracias a la ID. http://localhost:5000/api/commentvideo/:id
+    - Post: Permite crear un nuevo comentario, este se almacena en la propiedad del blog commentNew (es una array []). http://localhost:5000/api/newcommentvideo/:videoId
+    - Update: Permite modificar un comentario que hayas realizado tú, no otra persona. http://localhost:5000/api/updatecommentvideo/:id
+    - Delete: Permite borrar un usuario que hayas realizado tú, no otra persona. http://localhost:5000/api/deletecommentvideo/:id
 
 
 - CommentVideoRouter: Todas las rutas constan de la función Auth (es necesario estar logueado y disponer de un usuario) No hace falta ser administrador.
 
-    - Get: Permite ver todos los comentarios.
-    - Find: Permite ver un comentario en concreto gracias a la ID.
-    - Post: Permite crear un nuevo comentario, este se almacena en la propiedad del video commentV (es una array []).
-    - Update: Permite modificar un comentario que hayas realizado tú, no otra persona.
-    - Delete: Permite borrar un usuario que hayas realizado tú, no otra persona.
+    - Get: Permite ver todos los comentarios. http://localhost:5000/api/commentsblog
+    - Find: Permite ver un comentario en concreto gracias a la ID. http://localhost:5000/api/commentblog/:id
+    - Post: Permite crear un nuevo comentario, este se almacena en la propiedad del video commentV (es una array []). http://localhost:5000/api/newcommentblog/:blogId
+    - Update: Permite modificar un comentario que hayas realizado tú, no otra persona. http://localhost:5000/api/updatecommentblog/:id
+    - Delete: Permite borrar un usuario que hayas realizado tú, no otra persona. http://localhost:5000/api/deletecommentblog/:id
 
 - PayRouter: No disponen de la solicitud de modificar ni borrar debido a la seguridad.
 
-    - Get: Permite ver todos los pagos, es necesario loguearte y ser administrador.
-    - Find: Permite ver un pago en concreto gracias a la ID, es necesario loguearte y solo podrás ver el tuyo.
+    - Get: Permite ver todos los pagos, es necesario loguearte y ser administrador. http://localhost:5000/api/payments
+    - Find: Permite ver un pago en concreto gracias a la ID, es necesario loguearte y solo podrás ver el tuyo. http://localhost:5000/api/findpay/:id
     - Post: Permite crear un nuevo pago,  No es necesario loguearte ni ser administrador para facilitar que puedas realizarlo ya que es paso previo 
-     a poder crerar un usuario nuevo.
+     a poder crerar un usuario nuevo. http://localhost:5000/api/newpayment
 
 
 - UserRouter: Todas las rutas constan de la función Auth salvo el Post.
 
-    - Get: Permite ver todos los usuarios, para verlos todos es necesario tener el rol de aministrador.
-    - Find: Permite ver un usuario en concreto gracias a la ID.
-    - Post: Permite crear un nuevo usuario Es la única que no lleva auth ya que tiene que permitir crear los usuarios, en React lo configuraremos para que haste después de             haber realizado el pago no se cree el usuario.
-    - Update: Permite modificar un usuario creado por ti.
-    - Delete: Permite borrar un usuario creado por ti.
-    - Login: Permite al usuario registrarse gracias a la función AccessToken que crear el token y la función Auth revisa si es válido así como la función Admin revisas i es            administrador o No.
+    - Get: Permite ver todos los usuarios, para verlos todos es necesario tener el rol de aministrador. http://localhost:5000/api/users
+    - Find: Permite ver un usuario en concreto gracias a la ID. http://localhost:5000/api/finduser/:id
+    - Post: Permite crear un nuevo usuario Es la única que no lleva auth ya que tiene que permitir crear los usuarios, en React lo configuraremos para que haste después de             haber realizado el pago no se cree el usuario. http://localhost:5000/api/newuser
+    - Update: Permite modificar un usuario creado por ti. http://localhost:5000/api/updateuser/:id
+    - Delete: Permite borrar un usuario creado por ti. http://localhost:5000/api/deleteuser/:id
+    
+    - Login: Permite al usuario registrarse gracias a la función AccessToken que crear el token y la función Auth revisa si es válido así como la función Admin revisas i es            administrador o No. http://localhost:5000/api/login
 
 - CategoryRouter: No dispone de find (GetbyID), ya que solo va a ver dos categorías (Geología y Economía), tampoco dispone de borrar por aumentar la seguridad.
 
-    - Get: Permite ver todos las categorías, es necesario loguearte.
-    - Post: Permite crear una nueva categoría, es necesario loguearte y ser administrador.
-    - Update: Permite modificar una categoría, es necesario loguearte y ser administrador.
+    - Get: Permite ver todos las categorías, es necesario loguearte. http://localhost:5000/api/categories
+    - Post: Permite crear una nueva categoría, es necesario loguearte y ser administrador. http://localhost:5000/api/newcategory
+    - Update: Permite modificar una categoría, es necesario loguearte y ser administrador. http://localhost:5000/api/updatecategory/:id
 
 - BlogRoter: Todas las rutas constan de la función Auth (ya que solo tienen acceso los uasuarios)
 
     - Get: Permite ver todas las noticias.
     - Find: Permite ver una noticia en concreto gracias a la ID.
-    - Post: Permite crear una nueva noticia, es necesario ser administrador pues él es el encargado del mantenimiento del contenido.
+    - Post: Permite crear una nueva noticia, es necesario ser administrador pues él es el encargado del mantenimiento del contenido. 
     - Update: Permite modificar una noticia, es necesario ser administrador.
     - Delete: Permite borrar una noticia, es necesario ser administrador.
 
