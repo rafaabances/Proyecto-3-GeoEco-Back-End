@@ -1,10 +1,11 @@
 ## Proyecto-3-GeoEco-Back-End
 
 ### GeoEco.Com
-<!-- 
-Accede a la web: [FútbolRafi.com](https://futbolrafi.netlify.app/home) --> // poner la URL del web buena cuando se cree.
 
-![Árbol de Páginas](https://user-images.githubusercontent.com/96442220/154500211-2725fc5e-44ba-4382-bfbe-e7c063d52f43.png)
+<!-- Accede a la web: [FútbolRafi.com](https://futbolrafi.netlify.app/home) --> // poner la URL del web buena cuando se cree.
+
+![Home](https://user-images.githubusercontent.com/96442220/157253251-0a835e08-72d9-4028-a06b-700eafe21840.png)
+
 
 
 Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sobre Geología y Economía y también a futuro diversos temas sobre ciencia, política economía, esta destinado a personas curiosas que les guste aprender sobre este tipo de temas, va a constar de una página Home otra de contactos, otra de vñídeos y otra de blog de artículos y noticias en los cuales se va a poder realizar comentarios, para acceder a la Home y a la página de contacto no va a ser necesario suscribirse y pagar pero para acceder alos contenidos del blog y vídeos sí. Esto se va a controlar estableciendo un acceso en le que será necesario escribir tu usuario y contraseña y para poder validar este usuario o contraseña que obtienes registrandote en el formulario de la página de contactos, deberás haber pagado el importe mensual/anual que se haya establecido.
@@ -40,8 +41,12 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
 
 ### Tenologías hemos empleado: 
 
-![Tecnología](https://user-images.githubusercontent.com/96442220/154520352-864a310d-901e-429e-8808-2ef3f37bafa2.jpg)
+![1_NFTgwZ_TUmceZnSHCundBw](https://user-images.githubusercontent.com/96442220/157254389-430a6b4f-c169-4dce-a55d-c94e44ddbc0a.jpg)
+
 ![Postman](https://user-images.githubusercontent.com/96442220/153619900-b7e046bc-6146-4175-ba61-23f6d37c7fed.png)
+
+![images](https://user-images.githubusercontent.com/96442220/157254686-8fb73679-084e-482d-b0ae-7e0aa2dd9231.png)
+
 
 - Node JS: Ha sido el lenguaje de Backend que hemos utilizado, lo hemos usado para realizar las rutas al servidor así como describir los modelos, exportarlos y conectarlos vía node modules.
 
@@ -86,6 +91,9 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
           * PATCH: Actualizar alguna información
           * DELETE: Borrar información
 
+- VisualStudio: Es el editor de código empleado.
+
+- Git es nuestro repositorio y Github esnuestra cuenta.
 ---
 
 ### Modelos:
