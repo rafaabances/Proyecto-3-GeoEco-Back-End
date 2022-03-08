@@ -161,19 +161,19 @@ En nuestro proyecto hemos realizado diversas rutas que interrealcionan modelos y
 
 - BlogRoter: Todas las rutas constan de la función Auth (ya que solo tienen acceso los uasuarios)
 
-    - Get: Permite ver todas las noticias.
-    - Find: Permite ver una noticia en concreto gracias a la ID.
-    - Post: Permite crear una nueva noticia, es necesario ser administrador pues él es el encargado del mantenimiento del contenido. 
-    - Update: Permite modificar una noticia, es necesario ser administrador.
-    - Delete: Permite borrar una noticia, es necesario ser administrador.
+    - Get: Permite ver todas las noticias. http://localhost:5000/api/news
+    - Find: Permite ver una noticia en concreto gracias a la ID. http://localhost:5000/api/findnew/:id
+    - Post: Permite crear una nueva noticia, es necesario ser administrador pues él es el encargado del mantenimiento del contenido. http://localhost:5000/api/newarticle
+    - Update: Permite modificar una noticia, es necesario ser administrador. http://localhost:5000/api//updatenew/:id
+    - Delete: Permite borrar una noticia, es necesario ser administrador. http://localhost:5000/api//deletenew/:id
 
 - VideoRouter: Todas las rutas constan de la función Auth (ya que solo tienen acceso los uasuarios)
 
-    - Get: Permite ver todos los videos.
-    - Find: Permite ver un video en concreto gracias a la ID.
-    - Post: Permite crear un nuevo video, es necesario ser administrador pues él es el encargado del mantenimiento del contenido.
-    - Update: Permite modificar un vídeo, es necesario ser administrador.
-    - Delete: Permite borrar un vídeo, es necesario ser administrador.
+    - Get: Permite ver todos los videos. http://localhost:5000/api/videos
+    - Find: Permite ver un video en concreto gracias a la ID. http://localhost:5000/api/findvideo/:id
+    - Post: Permite crear un nuevo video, es necesario ser administrador pues él es el encargado del mantenimiento del contenido. http://localhost:5000/api/newvideo
+    - Update: Permite modificar un vídeo, es necesario ser administrador. http://localhost:5000/api//updatevideo/:id
+    - Delete: Permite borrar un vídeo, es necesario ser administrador. http://localhost:5000/api//deletevideo/:id
 
 
 ***
