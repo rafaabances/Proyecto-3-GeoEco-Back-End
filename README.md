@@ -190,6 +190,7 @@ En nuestro proyecto hemos realizado diversas rutas que interrealcionan modelos y
 
 * .gitignore: El archivo .gitignore, es un archivo de texto que le dice a Git qué archivos o carpetas ignorar en un proyecto. En nuestro caso va a ser node_modules y .env ya que no queremos que se rastreen credenciales, llaves privadas, las claves API y otra información confidencial en un repositorio de git, especialmente uno público.
 
+* nodeMailer: Contiene una función que combinado con las veriables USER_MAIL Y PASS_MAIL en el archivo .env y la dependencia nodemailer provee la funcionalidad de que cuando el usuario se registra en nuestra web se le envía un correo eléctónico a su cuenta dándole la bienvenida y le proporciona los datos del nombre, email y contraseña que ha creado.
 
 ***
 Contacto: Hotmail: **rafaelabancesserrate@hotmail.com**
