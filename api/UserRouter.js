@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth") // esto para que el newarticle solo lo pueda hacer alguien que esté logueado
 const authAdmin = require("../middleware/authAdmin") // esto para que solo lo pueda hacer el administrador
-
+const nodemailer = require("../middleware/nodeMailer")
 
 
 UserRouter.get("/users", auth, authAdmin, async (req, res) => {
@@ -126,6 +126,15 @@ UserRouter.post("/newuser", async (req, res) => {
         // // hay que ponerlo dentro (local) y no fuera en lo global, ya que si no te repite la contraseña si la contraseña es la misma.
         // passwordhash = bcrypt.hashSync(password, salt)
 
+       
+       
+        nodemailer.sendWelcomeEmail(
+            email,
+            password,  // se llama la funcón despues de hasear la contraseña y antes de crear el usuario
+            name,
+        ) 
+       
+       
         const newuser = new User({
             name,
             email,
