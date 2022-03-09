@@ -71,8 +71,9 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
             
      * Bcrypt: Es una función de hashing de passwords diseñado por Niels Provos y David Maxieres, basado en el cifrado de Blowfish. Lleva incorporado un valor llamado                  salt, que es un fragmento aleatorio que se usará para generar el hash asociado a la password, y se guardará junto con ella en la base de datos. Así se evita que                  dos passwords iguales generen el mismo hash y los problemas que ello conlleva, por ejemplo, ataque por fuerza bruta a todas las passwords del sistema a la vez. Con              el salt, se añade un grado de complejidad que evita que el hash asociado a una password sea único.
             
-     * JWT (JsonWebToken): Es un token de seguridad que nosotros creamos al momento que el usuario se registra con sus credenciales.
-        Este token se devuelve al cliente el cual tendrá que enviar cada vez que solicita información al servidor. Nos permite utentificarnos cuando realizamos el Login.
+     * JWT (JsonWebToken): Es un token de seguridad que nosotros creamos al momento que el usuario se registra con sus credenciales. Este token se devuelve al cliente el cual          tendrá que enviar cada vez que solicita información al servidor. Nos permite identificarnos cuando realizamos el Login.
+
+
             
 
 
