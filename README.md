@@ -55,7 +55,7 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
      
      * Mongoose: Es una librería para Node. js que nos permite escribir consultas para una base de datos de MongoDB, con características como validaciones,                   construcción de queries, middlewares, conversión de tipos y algunas otras, que enriquecen la funcionalidad de la base de datos.
             
-    * Nodemoon: es una utilidad de interfaz de línea de comandos (CLI) desarrollada por @rem que envuelve su aplicación Node, vigila el sistema de archivos y reinicia                 automáticamente el proceso ( no necesitas reiniciar el servidor cada vez que realizas un cambio)
+    * Nodemoon: Es una utilidad de interfaz de línea de comandos (CLI) desarrollada por @rem que envuelve su aplicación Node, vigila el sistema de archivos y reinicia                 automáticamente el proceso ( no necesitas reiniciar el servidor cada vez que realizas un cambio)
             
      * Express: Express es el framework web más popular de Node, y es la librería subyacente para un gran número de otros frameworks web de Node populares. Proporciona                 mecanismos para:
 
