@@ -93,7 +93,7 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
 
 - VisualStudio: Es el editor de código empleado.
 
-- Git es nuestro repositorio y Github esnuestra cuenta.
+- Git es nuestro repositorio y Github es nuestra cuenta.
 ---
 
 ## Modelos:
