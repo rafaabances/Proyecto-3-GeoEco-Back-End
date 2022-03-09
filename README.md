@@ -67,7 +67,7 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
 
       - Añadir procesamiento de peticiones "middleware" adicional en cualquier punto dentro de la tubería de manejo de la petición.
             
-     * Dotenv: La librería dotenv nos permitirá cargar a traves del método config() y el objecto path, el archivo . env que necesitemos de acuerdo al entorno deseado.                  Agregamos 2 nuevas tareas en nuestro archivo package.
+     * Dotenv: La librería Dotenv nos permitirá cargar a través del método config() y el objeto path, el archivo .env que necesitemos de acuerdo al entorno deseado.                  Agregamos 2 nuevas tareas en nuestro archivo package.
             
      * Bcrypt: Es una función de hashing de passwords diseñado por Niels Provos y David Maxieres, basado en el cifrado de Blowfish. Lleva incorporado un valor llamado                  salt, que es un fragmento aleatorio que se usará para generar el hash asociado a la password, y se guardará junto con ella en la base de datos. Así se evita que                  dos passwords iguales generen el mismo hash y los problemas que ello conlleva, por ejemplo, ataque por fuerza bruta a todas las passwords del sistema a la vez. Con              el salt, se añade un grado de complejidad que evita que el hash asociado a una password sea único.
             
