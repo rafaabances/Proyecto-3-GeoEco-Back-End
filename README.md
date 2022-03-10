@@ -8,7 +8,7 @@
 
 
 
-Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sobre Geología y Economía y también a futuro diversos temas sobre ciencia, política economía, esta destinado a personas curiosas que les guste aprender sobre este tipo de temas, va a constar de una página Home otra de contactos, otra de vñídeos y otra de blog de artículos y noticias en los cuales se va a poder realizar comentarios, para acceder a la Home y a la página de contacto no va a ser necesario suscribirse y pagar pero para acceder alos contenidos del blog y vídeos sí. Esto se va a controlar estableciendo un acceso en le que será necesario escribir tu usuario y contraseña y para poder validar este usuario o contraseña que obtienes registrandote en el formulario de la página de contactos, deberás haber pagado el importe mensual/anual que se haya establecido.
+Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sobre Geología y Economía y también a futuro diversos temas sobre ciencia, política economía, esta destinado a personas curiosas que les guste aprender sobre este tipo de temas, va a constar de una página Home otra de contactos, otra de vídeos y otra de blog de artículos y noticias en los cuales se va a poder realizar comentarios, para acceder a la Home y a la página de contacto no va a ser necesario suscribirse y pagar pero para acceder a los contenidos del blog y vídeos sí. Esto se va a controlar estableciendo un acceso en el que será necesario escribir tu usuario y contraseña y para poder validar este usuario o contraseña que obtienes registrándote en el formulario de la página de contactos, deberás haber pagado el importe mensual/anual que se haya establecido.
 
 ## La estructura de la web se compone de:
 
@@ -52,9 +52,10 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
      Dependencias:
             
      Se han utilizado varias dependencias, que nos han permitido diversas funcionalidades:
-            * Mongoose: Mongoose es una librería para Node. js que nos permite escribir consultas para una base de datos de MongooDB, con características como validaciones,                   construcción de queries, middlewares, conversión de tipos y algunas otras, que enriquecen la funcionalidad de la base de datos.
+     
+     * Mongoose: Es una librería para Node. js que nos permite escribir consultas para una base de datos de MongoDB, con características como validaciones,                   construcción de queries, middlewares, conversión de tipos y algunas otras, que enriquecen la funcionalidad de la base de datos.
             
-    * Nodemoon: es una utilidad de interfaz de línea de comandos (CLI) desarrollada por @rem que envuelve su aplicación Node, vigila el sistema de archivos y reinicia                 automáticamente el proceso ( no necesitas reiniciar el servidor cada vez que realizas un cambio)
+    * Nodemoon: Es una utilidad de interfaz de línea de comandos (CLI) desarrollada por @rem que envuelve su aplicación Node, vigila el sistema de archivos y reinicia                 automáticamente el proceso ( no necesitas reiniciar el servidor cada vez que realizas un cambio)
             
      * Express: Express es el framework web más popular de Node, y es la librería subyacente para un gran número de otros frameworks web de Node populares. Proporciona                 mecanismos para:
 
@@ -66,12 +67,13 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
 
       - Añadir procesamiento de peticiones "middleware" adicional en cualquier punto dentro de la tubería de manejo de la petición.
             
-     * Dotenv: La librería dotenv nos permitirá cargar a traves del método config() y el objecto path, el archivo . env que necesitemos de acuerdo al entorno deseado.                  Agregamos 2 nuevas tareas en nuestro archivo package.
+     * Dotenv: La librería Dotenv nos permitirá cargar a través del método config() y el objeto path, el archivo .env que necesitemos de acuerdo al entorno deseado.                  Agregamos 2 nuevas tareas en nuestro archivo package.
             
      * Bcrypt: Es una función de hashing de passwords diseñado por Niels Provos y David Maxieres, basado en el cifrado de Blowfish. Lleva incorporado un valor llamado                  salt, que es un fragmento aleatorio que se usará para generar el hash asociado a la password, y se guardará junto con ella en la base de datos. Así se evita que                  dos passwords iguales generen el mismo hash y los problemas que ello conlleva, por ejemplo, ataque por fuerza bruta a todas las passwords del sistema a la vez. Con              el salt, se añade un grado de complejidad que evita que el hash asociado a una password sea único.
             
-     * JWT (JsonWebToken): Es un token de seguridad que nosotros creamos al momento que el usuario se registra con sus credenciales.
-        Este token se devuelve al cliente el cual tendrá que enviar cada vez que solicita información al servidor. Nos permite utentificarnos cuando realizamos el Login.
+     * JWT (JsonWebToken): Es un token de seguridad que nosotros creamos al momento que el usuario se registra con sus credenciales. Este token se devuelve al cliente el cual          tendrá que enviar cada vez que solicita información al servidor. Nos permite identificarnos cuando realizamos el Login.
+
+
             
 
 
@@ -92,7 +94,7 @@ Se trata de un proyecto en el cual se va a desarrollar una web de contenidos sob
 
 - VisualStudio: Es el editor de código empleado.
 
-- Git es nuestro repositorio y Github esnuestra cuenta.
+- Git es nuestro repositorio y Github es nuestra cuenta.
 ---
 
 ## Modelos:
