@@ -155,13 +155,11 @@ CommentVideoRouter.put("/updatecommentvideo/:id", auth, async (req, res) => {
         id
     } = req.params
     const {
-        user,
         commentTextVideo
     } = req.body
     try {
 
         await CommentVideo.findByIdAndUpdate(id, {
-            user,
             commentTextVideo
         })
 
@@ -206,6 +204,33 @@ CommentVideoRouter.delete("/deletecommentvideo/:id", auth, async (req, res) => {
 })
 
 
+// MovieRouter.post("/likes", auth, async (req, res) => {
+//     const {movieId, action } = req.body;
+//     const {id} = req.user
+//     try {
+//       switch (action) {
+//         case "like":
+//           await Movie.findByIdAndUpdate(movieId, { $push: { likes: id} });
+//           break;
+
+//         case "dislike":
+//           await Movie.findByIdAndUpdate(movieId, { $pull: { likes: id} });
+//           break;
+
+//         default:
+//           break;
+//       }
+
+//       return res.status(200).send({
+//         success: true,
+//       })
+//     } catch (error) {
+//         return res.status(500).send({
+//             succes: false,
+//             message: error.message
+//         })
+//     }
+//   })
 
 
 

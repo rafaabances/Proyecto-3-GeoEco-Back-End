@@ -5,6 +5,17 @@ const VideoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    description:{
+        type: String,
+        required: true
+    },
+    videoV:{
+        type: Object,
+    },
+    date:{
+        type: String,
+        required: true
+    },
     category: {
         type: mongoose.Types.ObjectId,
         ref: "Category"

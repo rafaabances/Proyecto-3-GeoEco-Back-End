@@ -29,7 +29,7 @@ module.exports.sendWelcomeEmail = (email, password, name) => {
     to: email,
     subject: "¡Bienvenido a GeoEco!",
     html: `<h1>¡Datos de acceso a la aplicación!</h1>
-        <h2>¡¡Hola ${name}!! </h2>
+        <h2>¡¡Hola ${name}! </h2>
         <p>Tus datos de acceso son los siguientes:</p>
         <p><b>Usuario:</b> ${email}</p>
         <p><b>Password:</b> ${password}</p>

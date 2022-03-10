@@ -96,10 +96,21 @@ UserRouter.post("/newuser", async (req, res) => {
             })
         }
 
+        let DNI2 = await User.findOne({
+            DNI
+        })
+
+        if (DNI2) {
+            return res.status(400).send({
+                success: false,
+                message: " Este DNI ya está registrado"
+            })
+        }
+
         if (DNI.length < 9) {
             return res.status(400).send({
                 success: false,
-                message: "Nombre o contraseña demasiado corto"
+                message: "DNI demasiado corto"
             })
         }
 

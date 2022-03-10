@@ -3,6 +3,16 @@ const Blog = require("../models/Blog")
 const BlogRouter = express.Router();
 const auth = require("../middleware/auth") // esto para que el newarticle solo lo pueda hacer alguien que esté logueado
 const authAdmin = require("../middleware/authAdmin") // esto para que solo lo pueda hacer el administrador
+const cloudinary = require("cloudinary")
+
+const fs = require("fs")
+
+// INTRODUCIMOS LA CONFIGURACIÓN DE CLOUDINARY
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET
+})
 
 
 BlogRouter.get("/news", auth, async (req, res) => {
@@ -28,7 +38,13 @@ BlogRouter.get("/findnew/:id", auth, async (req, res) => {
     } = req.params
     try {
         // let blog = await Blog.findById(id).populate({ path: 'user', select: 'name' }).populate("category").populate('commentNew')
-        let blog = await Blog.findById(id, "user").populate({
+        let blog = await Blog.findById(id, "titleNew").populate({
+            path: 'category',
+            select: 'categoryName'
+        }).populate({
+            path: 'user',
+            select: 'name'
+        }).populate({
             path: 'commentNew',
             select: 'commentTextBlog'
         })
@@ -64,42 +80,95 @@ BlogRouter.get("/findnew/:id", auth, async (req, res) => {
 
 
 BlogRouter.post("/newarticle", auth, authAdmin, async (req, res) => { // pasamos el auth para que necesites estar logueado
-    const {
-        titleNew,
-        category
-    } = req.body
+
+
     // const user = User.findById(req.user.id).select("name")
     // const name = user
+    try {
 
-    const user = req.user.id
+        const {
+            titleNew,
+            description,
+            date,
+            category
+        } = req.body
 
-    // condición de que no hay usuario
 
-    if (titleNew.length < 5) {
-        return res.status(400).send({
+        if (titleNew.length < 5) {
+            return res.status(400).send({
+                success: false,
+                message: "Título del artículo demasiado corto"
+            })
+        }
+
+
+        if (!titleNew) {
+            return res.status(400).send({
+                success: false,
+                message: "No has completado todos los campos"
+            })
+
+        }
+
+        if (!req.files || Object.keys(req.files).length === 0)
+            return res.status(400).json({
+                msg: 'No files were uploaded.'
+            })
+
+        const file = req.files.file;
+        console.log(file)
+
+        if (file.size > 4000 * 3000) {
+            removeTmp(file.tempFilePath)
+            return res.status(400).json({
+                msg: 'Size too large'
+            })
+        }
+
+        if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
+            removeTmp(file.tempFilePath)
+
+            return res.status(400).json({
+                msg: "File format is incorrect."
+            })
+        }
+
+        // let newFile = await cloudinary.v2.uploader.upload(file.tempFilePath, {
+        //     folder: "filesUpload"
+        // }, async (err, result) => {
+        //     if (err) throw err;
+        //     removeTmp(file.tempFilePath)
+        // })
+
+        const newFile = await cloudinary.v2.uploader.upload(file.tempFilePath, {
+            folder: "imagenes"
+        })
+        removeTmp(file.tempFilePath);
+
+
+        let blog = new Blog({ // viene del modelo user
+            titleNew,
+            description,
+            image: {
+                public_id: newFile.public_id,
+                url: newFile.secure_url
+            },
+            date,
+            category: category,
+            user: req.user.id
+        })
+        await blog.save()
+        return res.status(200).send({
+            success: true,
+            blog
+        })
+
+    } catch (error) {
+        res.status(500).send({
             success: false,
-            message: "Título del artículo demasiado corto"
+            message: error.message
         })
     }
-
-
-    if (!titleNew) {
-        return res.status(400).send({
-            success: false,
-            message: "No has completado todos los campos"
-        })
-    }
-
-    let blog = new Blog({ // viene del modelo user
-        titleNew,
-        user,
-        category: category
-    })
-    await blog.save()
-    return res.status(200).send({
-        success: true,
-        blog
-    })
 })
 
 BlogRouter.put("/updatenew/:id", auth, authAdmin, async (req, res) => {
@@ -108,7 +177,8 @@ BlogRouter.put("/updatenew/:id", auth, authAdmin, async (req, res) => {
     } = req.params
     const {
         titleNew,
-        category
+        description,
+        date,
     } = req.body
     try {
 
@@ -127,18 +197,17 @@ BlogRouter.put("/updatenew/:id", auth, authAdmin, async (req, res) => {
         }
 
 
+
         await Blog.findByIdAndUpdate(id, {
             titleNew,
-            user,
-            noticia,
-            commentNew,
-            category
+            description,
+            date,
         })
 
 
         return res.status(200).send({
             success: true,
-            message: "Noticia Modificado"
+            message: "Noticia Modificada"
         })
 
     } catch (error) {
@@ -154,12 +223,30 @@ BlogRouter.delete("/deletenew/:id", auth, authAdmin, async (req, res) => { // fa
     const {
         id
     } = req.params
+    const {
+        public_id
+    } = req.body
     try {
+
+        if (!public_id) {
+            return res.status(400).json({
+                success: false,
+                message: "No se han seleccionado imagenes",
+            });
+        }
+
         await Blog.findByIdAndDelete(id)
-        return res.status(200).send({
+        cloudinary.v2.uploader.destroy(public_id, async (err, result) => {
+            if (err) throw err;
+        });
+
+        res.json({
             success: true,
-            message: "Noticia eliminado"
-        })
+            message: "Noticia eliminado correctamente",
+        });
+
+
+
     } catch (error) {
         res.status(500).send({
             success: false,
@@ -167,6 +254,12 @@ BlogRouter.delete("/deletenew/:id", auth, authAdmin, async (req, res) => { // fa
         })
     }
 })
+
+const removeTmp = (path) => {
+    fs.unlink(path, err => {
+        if (err) throw err;
+    })
+}
 
 
 

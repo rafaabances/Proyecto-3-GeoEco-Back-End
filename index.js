@@ -9,12 +9,18 @@ const CommentVideoRouter = require("./api/CommentVideoRouter");
 const VideoRouter = require("./api/VideoRouter");
 const BlogRouter = require("./api/BlogRouter");
 const CategoryRouter = require("./api/CategoryRouter");
+const fileUpload = require("express-fileupload") // subir archivos cloudinary
 
+
+const fs = require("fs") // se usa para tenener base de datos en Local,
 
 app.use(express.json({
     extended: true
 }))
 app.use(express.urlencoded())
+app.use(fileUpload({ // subir archivos al cloudinary
+    useTempFiles: true
+}))
 
 app.use("/api", PayRouter)
 app.use("/api", UserRouter)
