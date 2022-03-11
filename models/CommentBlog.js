@@ -12,7 +12,14 @@ const CommentBlogSchema = new mongoose.Schema({
     blog: {
         type: mongoose.Types.ObjectId,
         ref: "Blog"
-    }
+    },
+    likes: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "User"
+        }
+
+    ]
 }, {
     timestamps: true
 })

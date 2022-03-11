@@ -12,7 +12,14 @@ const CommentVideoSchema = new mongoose.Schema({
     video: {
         type: mongoose.Types.ObjectId,
         ref: "Video"
-    }
+    },
+    likes: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "User"
+        }
+
+    ]
 }, {
     timestamps: true
 })

@@ -47,8 +47,10 @@ BlogRouter.get("/findnew/:id", auth, async (req, res) => {
         }).populate({
             path: 'commentNew',
             select: 'commentTextBlog'
+        }).populate({
+            path: 'likes',
+            select: 'name'
         })
-
         //errores antes de la respuesta final
 
         if (!blog) {
@@ -260,6 +262,56 @@ const removeTmp = (path) => {
         if (err) throw err;
     })
 }
+
+
+BlogRouter.post("/bloglikes", auth, async (req, res) => {
+    const {BlogId, action } = req.body;
+    const {id} = req.user
+    try {
+        let findBlog = await Blog.findById(BlogId)
+        if (!findBlog) {
+            return res.status(400).send({
+                success: false,
+                message: "This Blog does not exist"
+            })
+        }
+
+        // let findUser = await findBlog.likes.find(user => user._id.equals(id))
+        // console.log(id)
+        // if(findUser){
+        //     return res.status(400).send({
+        //         success: false,
+        //         message: "Ya le has dado like a este blog"
+        //     })
+        // }
+
+
+      switch (action) {
+        case "like":
+          await Blog.findByIdAndUpdate(BlogId, { $push: { likes: id} });
+          break;
+
+        case "dislike":
+          await Blog.findByIdAndUpdate(BlogId, { $pull: { likes: id} });
+          break;
+
+        default:
+          break;
+      }
+
+      return res.status(200).send({
+        success: true,
+      })
+    } catch (error) {
+        return res.status(500).send({
+            succes: false,
+            message: error.message
+        })
+    }
+  })
+
+  
+
 
 
 

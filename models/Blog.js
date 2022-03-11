@@ -5,14 +5,14 @@ const BlogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description:{
+    description: {
         type: String,
         required: true
     },
-    image:{
+    image: {
         type: Object,
     },
-    date:{
+    date: {
         type: String,
         required: true
     },
@@ -31,7 +31,13 @@ const BlogSchema = new mongoose.Schema({
             ref: "CommentBlog"
         }
     ],
+    likes: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "User"
+        }
 
+    ]
 }, {
     timestamps: true
 })

@@ -41,6 +41,9 @@ VideoRouter.get("/findvideo/:id", auth, async (req, res) => {
         }).populate({
             path: 'commentV',
             select: 'commentTextVideo'
+        }).populate({
+            path: 'likes',
+            select: 'name'
         })
 
 
@@ -103,53 +106,52 @@ VideoRouter.post("/newvideo", auth, authAdmin, async (req, res) => {
         }
 
 
-        if (!req.files || Object.keys(req.files).length === 0)
-            return res.status(400).json({
-                msg: 'No files were uploaded.'
-            })
-
-
-
-        const file = req.files.file;
-        console.log(file)
-
-        // if (file.size > 4000 * 3000) {
-        //     removeTmp(file.tempFilePath)
+        // if (!req.files || Object.keys(req.files).length === 0)
         //     return res.status(400).json({
-        //         msg: 'Size too large'
+        //         msg: 'No files were uploaded.'
         //     })
-        // }
-
-        // if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
-        //     removeTmp(file.tempFilePath)
-
-        //     return res.status(400).json({
-        //         msg: "File format is incorrect."
-        //     })
-        // }
-
-        const newFile = await cloudinary.v2.uploader.upload(file.tempFilePath, {
-            folder: "Vídeos"
-        })
-        removeTmp(file.tempFilePath);
-
-        // cloudinary.v2.uploader.upload("dog.mp4", 
-        // {resource_type: "video", public_id: "myfolder/mysubfolder/my_dog",
-        // overwrite: true, notification_url: "https://mysite.example.com/notify_endpoint"},
-        // function(error, result) {console.log(result, error)});
 
 
 
+        // const file = req.files.file;
+        // console.log(file)
+
+        // // if (file.size > 4000 * 3000) {
+        // //     removeTmp(file.tempFilePath)
+        // //     return res.status(400).json({
+        // //         msg: 'Size too large'
+        // //     })
+        // // }
+
+        // // if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
+        // //     removeTmp(file.tempFilePath)
+
+        // //     return res.status(400).json({
+        // //         msg: "File format is incorrect."
+        // //     })
+        // // }
+
+        // const newFile = await cloudinary.v2.uploader.upload(file.tempFilePath, {
+        //     folder: "Vídeos"
+        // })
+        // removeTmp(file.tempFilePath);
+
+      
+        // var videoFile = req.files.videoFile
+        // console.log(videoFile)
+        // // cloudinary.uploader.upload(videoFile,
+        // //                 function(result) {console.log(result); },
+        // //                 { resource_type: "video" });
+
+        // cloudinary.v2.uploader.upload_large(videoFile, 
+        // { resource_type: "video" },
+        // function(error, result) {console.log(result, error); });
         
 
 
         let video = new Video({ // viene del modelo user
             titleVideo,
             description,
-            videoV: {
-                public_id: newFile.public_id,
-                url: newFile.secure_url
-            },
             date,
             category: category,
             user: req.user.id
@@ -258,7 +260,50 @@ const removeTmp = (path) => {
         if (err) throw err;
     })
 }
+VideoRouter.post("/videolikes", auth, async (req, res) => {
+    const {VideoId, action } = req.body;
+    const {id} = req.user
+    try {
+        let findvideo = await Video.findById(VideoId)
+        if (!findvideo) {
+            return res.status(400).send({
+                success: false,
+                message: "This Video does not exist"
+            })
+        }
+
+        // let findUser = await findBlog.likes.find(user => user._id.equals(id))
+        // console.log(id)
+        // if(findUser){
+        //     return res.status(400).send({
+        //         success: false,
+        //         message: "Ya le has dado like a este blog"
+        //     })
+        // }
 
 
+      switch (action) {
+        case "like":
+          await Video.findByIdAndUpdate(VideoId, { $push: { likes: id} });
+          break;
+
+        case "dislike":
+          await Video.findByIdAndUpdate(VideoId, { $pull: { likes: id} });
+          break;
+
+        default:
+          break;
+      }
+
+      return res.status(200).send({
+        success: true,
+      })
+    } catch (error) {
+        return res.status(500).send({
+            succes: false,
+            message: error.message
+        })
+    }
+  })
 
 module.exports = VideoRouter

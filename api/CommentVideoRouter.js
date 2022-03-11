@@ -64,7 +64,10 @@ CommentVideoRouter.get("/commentvideo/:id", auth, async (req, res) => { // auth?
         id
     } = req.params;
     // const id = req.body;
-    let comments = await CommentVideo.findById(id);
+    let comments = await CommentVideo.findById(id).populate({
+        path: 'likes',
+        select: 'name'
+    })
 
     let userId = comments.userId;
     // console.log(comments.userId);
@@ -204,33 +207,51 @@ CommentVideoRouter.delete("/deletecommentvideo/:id", auth, async (req, res) => {
 })
 
 
-// MovieRouter.post("/likes", auth, async (req, res) => {
-//     const {movieId, action } = req.body;
-//     const {id} = req.user
-//     try {
-//       switch (action) {
-//         case "like":
-//           await Movie.findByIdAndUpdate(movieId, { $push: { likes: id} });
-//           break;
+CommentVideoRouter.post("/commentvideolikes", auth, async (req, res) => {
+    const {CommentVideoId, action } = req.body;
+    const {id} = req.user
+    try {
+        let findCommentVideo = await CommentVideo.findById(CommentVideoId)
+        if (!findCommentVideo) {
+            return res.status(400).send({
+                success: false,
+                message: "This CommentVideo does not exist"
+            })
+        }
 
-//         case "dislike":
-//           await Movie.findByIdAndUpdate(movieId, { $pull: { likes: id} });
-//           break;
+        // let findUser = await findBlog.likes.find(user => user._id.equals(id))
+        // console.log(id)
+        // if(findUser){
+        //     return res.status(400).send({
+        //         success: false,
+        //         message: "Ya le has dado like a este blog"
+        //     })
+        // }
 
-//         default:
-//           break;
-//       }
 
-//       return res.status(200).send({
-//         success: true,
-//       })
-//     } catch (error) {
-//         return res.status(500).send({
-//             succes: false,
-//             message: error.message
-//         })
-//     }
-//   })
+      switch (action) {
+        case "like":
+          await CommentVideo.findByIdAndUpdate(CommentVideoId, { $push: { likes: id} });
+          break;
+
+        case "dislike":
+          await CommentVideo.findByIdAndUpdate(CommentVideoId, { $pull: { likes: id} });
+          break;
+
+        default:
+          break;
+      }
+
+      return res.status(200).send({
+        success: true,
+      })
+    } catch (error) {
+        return res.status(500).send({
+            succes: false,
+            message: error.message
+        })
+    }
+  })
 
 
 
